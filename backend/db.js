@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/paymentsApp');
+mongoose.connect(
+  'mongodb+srv://thelivingfire01:7e760T3AsJqKj6fJ@cluster0.pm5bad6.mongodb.net/paymentsApp'
+);
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -10,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     minLength: 5,
-    maxLength: 25,
+    maxLength: 100,
   },
   password: {
     type: String,
@@ -25,16 +27,18 @@ const UserSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    rquired: true,
+    required: true,
     trim: true,
     maxLength: 30,
   },
 });
 
+const User = mongoose.model('User', UserSchema);
+
 const accountSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: User,
+    ref: 'User',
     required: true,
   },
   balance: {
@@ -43,7 +47,6 @@ const accountSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', UserSchema);
 const Account = mongoose.model('Account', accountSchema);
 
 module.exports = {

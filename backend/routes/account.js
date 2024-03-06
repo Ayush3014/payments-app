@@ -1,7 +1,8 @@
 const express = require('express');
 const { Account } = require('../db');
 const accountRouter = express.Router();
-import { authMiddleware } from '../middleware';
+const { authMiddleware } = require('../middleware');
+const mongoose = require('mongoose');
 
 accountRouter.get('/balance', authMiddleware, async (req, res) => {
   const account = await Account.findOne({

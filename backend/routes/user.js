@@ -4,7 +4,7 @@ const zod = require('zod');
 const { User, Account } = require('../db');
 const { JWT_SECRET } = require('../config');
 const jwt = require('jsonwebtoken');
-import { authMiddleware } from '../middleware';
+const { authMiddleware } = require('../middleware');
 
 const userRouter = express.Router();
 
@@ -63,7 +63,7 @@ userRouter.post('/signin', async (req, res) => {
     res.status(411).json({ message: 'Error while logging in' });
   }
 
-  const user = await findOne({
+  const user = await User.findOne({
     username: req.body.username,
     password: req.body.password,
   });
